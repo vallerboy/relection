@@ -6,13 +6,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@SuppressWarnings("ALL")
 public class Main {
 
     public static List<JavaObserver> javaObservers = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
-            for (Class aClass : getClasses(Main.class.getClassLoader(), "")) {
+            for (Class aClass : getClasses(Main.class.getClassLoader())) {
                 if(aClass.isAnnotationPresent(JavaUser.class)){
                     javaObservers.add((JavaObserver) aClass.newInstance());
                 }
@@ -37,9 +38,8 @@ public class Main {
          }
     }
 
-    public static List<Class> getClasses(ClassLoader cl, String pack) throws Exception{
+    public static List<Class> getClasses(ClassLoader cl) throws Exception{
 
-        String dottedPackage = pack.replaceAll("[/]", ".");
         List<Class> classes = new ArrayList<Class>();
         URL upackage = cl.getResource("");
 
